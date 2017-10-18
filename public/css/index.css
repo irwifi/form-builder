@@ -2,16 +2,23 @@
   * {
   }
 
+.container-fluid {
+  padding: 0;
+}
+
   .hidden {
     display: none;
   }
 
   .jumbotron {
-    height: 120px;
+    height: 160px;
   }
 
   .jumbotron h1 {
     text-align: center;
+    margin-top: 0;
+    color: #555;
+    font-weight: bold;
   }
 
   .main_body {
@@ -19,3 +26,46 @@
     margin: 20px auto;
   }
 /* Global ====================================== END */
+
+#form_objects {
+  display: block;
+  padding: 0;
+  height: 545px;
+  width: 224px;
+  margin-bottom: 2px;
+  overflow: auto;
+}
+
+#form_element_toggle {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  background: #f15239;
+  font-size: 14px;
+  color: #FFF;
+  text-align: center;
+}
+
+.frmb-control {
+  overflow: auto;
+}
+
+#form_objects .frmb-control li {
+  height: 30px;
+  padding-top: 5px;
+}
+
+.form-wrap.form-builder .form-actions {
+  margin-top: 0;
+  margin-bottom: 4px;
+  margin-right: 60px;
+}
+
+.form-wrap.form-builder .btn {
+  border-radius: 6px;
+  padding-left: 18px;
+  padding-right: 18px;
+  color: #FFF;
+  margin-left: 2px;
+  margin-right: 2px
+}
