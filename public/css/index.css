@@ -1,0 +1,21 @@
+/* Global ====================================== START */
+  * {
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .jumbotron {
+    height: 120px;
+  }
+
+  .jumbotron h1 {
+    text-align: center;
+  }
+
+  .main_body {
+    width: 1100px;
+    margin: 20px auto;
+  }
+/* Global ====================================== END */
