@@ -27,10 +27,17 @@
   }
 /* Global ====================================== END */
 
+.form-wrap.form-builder .frmb {
+  border: 3px dashed #ccc;
+  background-color: hsla(0,0%,100%,.25);
+  height: 300px;
+  overflow: auto;
+}
+
 #form_objects {
   display: block;
   padding: 0;
-  height: 545px;
+  height: 585px;
   width: 224px;
   margin-bottom: 2px;
   overflow: auto;
@@ -56,9 +63,7 @@
 }
 
 .form-wrap.form-builder .form-actions {
-  margin-top: 0;
-  margin-bottom: 4px;
-  margin-right: 60px;
+  margin: 4px;
 }
 
 .form-wrap.form-builder .btn {
@@ -68,4 +73,13 @@
   color: #FFF;
   margin-left: 2px;
   margin-right: 2px
+}
+
+.form-builder-dialog {
+  overflow: auto;
+}
+
+.form-builder-dialog.data-dialog {
+  width: 800px;
+}
 }
