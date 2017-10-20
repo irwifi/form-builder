@@ -43,7 +43,7 @@
   overflow: auto;
 }
 
-#form_element_toggle {
+.form_object_toggle {
   display: block;
   height: 40px;
   line-height: 40px;
@@ -51,6 +51,7 @@
   font-size: 14px;
   color: #FFF;
   text-align: center;
+  cursor: pointer;
 }
 
 .frmb-control {
@@ -60,6 +61,11 @@
 #form_objects .frmb-control li {
   height: 30px;
   padding-top: 5px;
+}
+
+.form_object_inner {
+  display: none;
+  max-height": "505px";
 }
 
 .form-wrap.form-builder .form-actions {
@@ -82,4 +88,14 @@
 .form-builder-dialog.data-dialog {
   width: 800px;
 }
+
+.selected {
+  border: 2px dashed #F00;
+}
+
+.element_properties_inner {
+  display: none;
+  height: 200px;
+  overflow: auto;
+  background: #FFF;
 }
