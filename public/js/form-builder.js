@@ -2354,57 +2354,59 @@ var Helpers = function () {
 
     if (form.childNodes.length !== 0) {
       _utils2.default.forEach(form.childNodes, function (index, field) {
-        var $field = $(field);
+         if(field.childElementCount !== undefined) {
+          var $field = $(field);
 
-        if (!$field.hasClass('disabled-field')) {
-          var fieldData = _this.getTypes($field);
-          var $roleInputs = $('.roles-field:checked', field);
-          var roleVals = $roleInputs.map(function (index) {
-            return $roleInputs[index].value;
-          }).get();
+          if (!$field.hasClass('disabled-field')) {
+            var fieldData = _this.getTypes($field);
+            var $roleInputs = $('.roles-field:checked', field);
+            var roleVals = $roleInputs.map(function (index) {
+              return $roleInputs[index].value;
+            }).get();
 
-          _this.setAttrVals(field, fieldData);
+            _this.setAttrVals(field, fieldData);
 
-          if (fieldData.subtype) {
-            if (fieldData.subtype === 'quill') {
-              var id = fieldData.name + '-preview';
-              if (window.fbEditors.quill[id]) {
-                var instance = window.fbEditors.quill[id].instance;
-                var data = instance.getContents();
-                fieldData.value = window.JSON.stringify(data.ops);
-              }
-            } else if (fieldData.subtype === 'tinymce' && window.tinymce) {
-              var _id = fieldData.name + '-preview';
-              if (window.tinymce.editors[_id]) {
-                var editor = window.tinymce.editors[_id];
-                fieldData.value = editor.getContent();
+            if (fieldData.subtype) {
+              if (fieldData.subtype === 'quill') {
+                var id = fieldData.name + '-preview';
+                if (window.fbEditors.quill[id]) {
+                  var instance = window.fbEditors.quill[id].instance;
+                  var data = instance.getContents();
+                  fieldData.value = window.JSON.stringify(data.ops);
+                }
+              } else if (fieldData.subtype === 'tinymce' && window.tinymce) {
+                var _id = fieldData.name + '-preview';
+                if (window.tinymce.editors[_id]) {
+                  var editor = window.tinymce.editors[_id];
+                  fieldData.value = editor.getContent();
+                }
               }
             }
-          }
 
-          if (roleVals.length) {
-            fieldData.role = roleVals.join(',');
-          }
-
-          fieldData.className = fieldData.className || fieldData.class;
-
-          if (fieldData.className) {
-            var match = /(?:^|\s)btn-(.*?)(?:\s|$)/g.exec(fieldData.className);
-            if (match) {
-              fieldData.style = match[1];
+            if (roleVals.length) {
+              fieldData.role = roleVals.join(',');
             }
+
+            fieldData.className = fieldData.className || fieldData.class;
+
+            if (fieldData.className) {
+              var match = /(?:^|\s)btn-(.*?)(?:\s|$)/g.exec(fieldData.className);
+              if (match) {
+                fieldData.style = match[1];
+              }
+            }
+
+            fieldData = _utils2.default.trimObj(fieldData);
+
+            var multipleField = fieldData.type && fieldData.type.match(d.optionFieldsRegEx);
+
+            if (multipleField) {
+              fieldData.values = _this.fieldOptionData($field);
+            }
+
+            formData.push(fieldData);
           }
-
-          fieldData = _utils2.default.trimObj(fieldData);
-
-          var multipleField = fieldData.type && fieldData.type.match(d.optionFieldsRegEx);
-
-          if (multipleField) {
-            fieldData.values = _this.fieldOptionData($field);
-          }
-
-          formData.push(fieldData);
-        }
+         }
       });
     }
 
@@ -2905,7 +2907,7 @@ var Helpers = function () {
 
       if (scrollTop > $stageWrap.offset().top) {
         var style = {
-          position: 'fixed',
+          // position: 'fixed',
           width: cbWidth
         };
 
@@ -5451,7 +5453,7 @@ var FormBuilder = function FormBuilder(opts, element) {
     liContents.push(m('div', formElements, { id: data.lastID + '-holder', className: 'frm-holder' }));
 
     var field = m('li', liContents, {
-      class: type + '-field form-field',
+      class: type + '-field form-field new',
       type: type,
       id: data.lastID
     });
@@ -5481,6 +5483,8 @@ var FormBuilder = function FormBuilder(opts, element) {
     }
 
     data.lastID = h.incrementId(data.lastID);
+    $(".form-field.new").on("click", select_form_element);
+     $(".new").removeClass("new");
   };
 
   var selectFieldOptions = function selectFieldOptions(name, optionData, multipleSelect) {
@@ -5854,7 +5858,9 @@ var FormBuilder = function FormBuilder(opts, element) {
   };
 
   return formBuilder;
-};(function ($) {
+};
+
+(function ($) {
   $.fn.formBuilder = function (options) {
     if (!options) {
       options = {};
@@ -5900,3 +5906,14 @@ var FormBuilder = function FormBuilder(opts, element) {
 
 /***/ })
 /******/ ]);
+
+function select_form_element() {
+  $(".selected").removeClass("selected");
+  $(this).addClass("selected");
+  $(".form_object_inner").hide();
+  $(".element_properties_inner").html($(".selected .form-elements").html()).show();
+  $(".element_properties_inner a.close-field").remove();
+  $(".element_properties_inner input").on("change", function() {
+    // $(".selected .form-elements").html($(".element_properties_inner").html())
+  });
+}
